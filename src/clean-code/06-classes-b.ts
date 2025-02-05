@@ -1,23 +1,36 @@
 (() => {
   type Gender = "M" | "F";
+  interface PersonProps {
+    name: string;
+    gender: Gender;
+    birthdate: Date;
+  }
   class Person {
-    constructor(
-      public name: string,
-      public gender: Gender,
-      public birthdate: Date
-    ) {}
+    public name: string;
+    public gender: Gender;
+    public birthdate: Date;
+    constructor({ name, gender, birthdate }: PersonProps) {
+      this.name = name;
+      this.gender = gender;
+      this.birthdate = birthdate;
+    }
   }
 
+  interface UserProps {
+    email: string;
+    role: string;
+    name: string;
+    gender: Gender;
+    birthdate: Date;
+  }
   class User extends Person {
+    public email: string;
+    public role: string;
     public lastAccess: Date;
-    constructor(
-      public email: string,
-      public role: string,
-      name: string,
-      gender: Gender,
-      birthdate: Date
-    ) {
-      super(name, gender, birthdate);
+    constructor({ email, role, name, gender, birthdate }: UserProps) {
+      super({ name, gender, birthdate });
+      this.email = email;
+      this.role = role;
       this.lastAccess = new Date();
     }
 
@@ -25,30 +38,43 @@
       return true;
     }
   }
-
+  interface UserSettingsProps {
+    workingDirectory: string;
+    lastOpenFolder: string;
+    email: string;
+    role: string;
+    name: string;
+    gender: Gender;
+    birthdate: Date;
+  }
   class UserSettings extends User {
-    constructor(
-      public workingDirectory: string,
-      public lastOpenFolder: string,
-      email: string,
-      role: string,
-      name: string,
-      gender: Gender,
-      birthdate: Date
-    ) {
-      super(email, role, name, gender, birthdate);
+    public workingDirectory: string;
+    public lastOpenFolder: string;
+
+    constructor({
+      workingDirectory,
+      lastOpenFolder,
+      email,
+      role,
+      name,
+      gender,
+      birthdate,
+    }: UserSettingsProps) {
+      super({ email, role, name, gender, birthdate });
+      this.workingDirectory = workingDirectory;
+      this.lastOpenFolder = lastOpenFolder;
     }
   }
 
-  const userSettings = new UserSettings(
-    "/usr/home",
-    "home",
-    "angel@google.com",
-    "Admin",
-    "Angel",
-    "M",
-    new Date("1999-03-29")
-  );
+  const userSettings = new UserSettings({
+    workingDirectory: "/usr/home",
+    lastOpenFolder: "home",
+    email: "angel@google.com",
+    role: "Admin",
+    name: "Angel",
+    gender: "M",
+    birthdate: new Date("1999-03-29"),
+  });
   console.log({
     userSettings,
     areCredentialsValid: userSettings.checkCredentials(),
