@@ -3,7 +3,7 @@ interface Bird {
 }
 
 interface FlyingBird extends Bird {
-  fly(): void;
+  fly(): number;
 }
 
 interface RunningBird extends Bird {
@@ -15,12 +15,16 @@ interface SwimmerBird {
 }
 
 class Tucan implements Bird, FlyingBird {
-  public fly() {}
+  public fly() {
+    return 100;
+  }
   public eat() {}
 }
 
 class Hummingbird implements Bird, FlyingBird {
-  public fly() {}
+  public fly() {
+    return 50;
+  }
   public eat() {}
 }
 
